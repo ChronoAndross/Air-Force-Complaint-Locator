@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>index</title>
+		<meta name="author" content="Andrew Gorbaty" />
+		<meta name="description" content="Create a program which draws the number of complaints from a Air Force Base on a U.S. Map." />
+
+	</head>
+	
+	<body>
+			<header>
+				<h1>US Air Force EO Complaint Locator</h1>
+			</header>
+
+		<canvas id="mapCanvas" height="1000" width="1500"> </canvas>
+		<script>
+			// this happens when program is run
+			var elements;
+			var canvas = document.getElementById('mapCanvas');
+     		 var context = canvas.getContext('2d');
+     		 context.globalAlpha = 0.5;
+      		 var imageObj = new Image();
+      		 imageObj.onload = function() 
+      		 {
+        		context.drawImage(imageObj, 69, 50);
+      		 };
+      		 imageObj.src = "pictures/afg_021217_028.jpg";	
+        var allBases = ["Maxwell", "Eielson", "Elmendorf", "Davis-Monthan","Luke","Little Rock","Beale","Edwards","Los Angeles","Travis",
+"Vandenberg","Air Force Academy","Peterson","Schriever","Dover","Bolling","Elgin","Hurlburt","MacDill","Patrick","Tyndall","Moody","Robins","Hickam",
+"Mountain Home","Scott","McConnell","Barksdale","Andrews","Hanscom","Columbus","Keesler","Malmstrom","Nellis","McGuire","Cannon","Holloman",
+"Kirtland","Pope","Seymour","Grand Forks","Minot","Wright-Patterson","Altus","Tinker","Vance","Charleston","Shaw","Ellsworth","Arnold","Dyess",
+"Goodfellow","Lackland","Laughlin","Randolph","Sheppard","Hill","Langley","Fairchild","McChord","F.E. Warren", "Buckley", "Offutt", "Brooks",
+						"Whiteman"];
+		
+		var allLocationsX = [1010, 380, 380, 260,350,840,190,240,200,190,
+190,350,440,555,1315,1360,970,970,1200,1270,1140,1140,1160,520,
+304,900,660,900,1350,1380,940,850,390,300,1345,450,450,
+450,1280,1375,660,660,950,660,720,660,1285,1237,660,930,660,
+500,520,500,660,660,350,1305,230,200,450,550,630,700,
+810]; // x coordinates; needs to be completed
+		
+		var allLocationsY = [610, 760, 860, 610,535,550,320,475,550,350,
+460,425,440,430,350,380,630,710,730,690,660,630,590,820,
+270,410,460,610,415,265,570,660,150,470,320,550,580,
+570,500,475,170,130,400,520,520,495,565,537,280,510,620,
+650,700,670,660,595,380,442,128,95,330,395,365,710,
+475]; // y coordinates; needs to be completed
+
+	for (var i = 0; i < allBases.length; i++)
+	{
+		document.write("<label>" + allBases[i] + "</label>" + " " + "<textarea cols=2 rows=1> </textarea>")
+	}
+	
+	function markComplaints() // drawing function
+	{
+		elements = document.getElementsByTagName("textarea");
+		context.clearRect(0,0,1500, 1000);
+		context.lineWidth=4;
+		context.fillStyle="#0000ff";
+		context.lineStyle="#ffff00";
+		context.font="bold 10px Verdana";
+		
+		imageObj = new Image();
+      	imageObj.onload = function() 
+      	{
+        	context.drawImage(imageObj, 69, 50);
+      	};
+      	imageObj.src = "pictures/afg_021217_028.jpg";	
+      	      	
+		for (var i = 0; i < allBases.length; i++)
+		{
+			if (elements.item(i).value != null)
+			{
+
+					context.fillText(elements.item(i).value, allLocationsX[i], allLocationsY[i]);
+				// coordinates from x and y locations should take the place of the last two parameters
+			}
+		}
+		// algorithm:
+		// 1. Get elements from textareas
+		// 2. Get the locations of each base in terms of canvas coordinates
+		// 3. Get HTML5 2D canvas to draw those elements on the map (in their respective locations)
+	}
+			
+		</script>
+		<button onclick="markComplaints()"> Process </button>	
+			<footer>
+				<p>
+					&copy; Copyright 2012 
+ 				</p>
+			</footer>
+	</body>
+</html>
